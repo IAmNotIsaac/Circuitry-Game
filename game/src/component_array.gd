@@ -2,8 +2,10 @@ class_name ComponentArray
 
 
 var items := []
+var _iter_idx = 0
 
 
+# warning-ignore:shadowed_variable
 func _init(items := []) -> void:
 	if _all_items_components(items):
 		self.items = items
@@ -28,8 +30,8 @@ func empty() -> bool:
 	return items.empty()
 
 
-func insert(idx : int, comp_data : ComponentData) -> int:
-	return items.insert(idx, comp_data)
+func insert(idx : int, comp_data : ComponentData) -> void:
+	items.insert(idx, comp_data)
 
 
 func invert() -> void:
@@ -53,10 +55,10 @@ func get_idx(idx : int) -> ComponentData:
 
 
 func set_idx(idx : int, comp_data : ComponentData) -> void:
-	items.set(idx, comp_data)
+	items[idx] = comp_data
 
 
-func size() -> void:
+func size() -> int:
 	return items.size()
 
 
@@ -68,18 +70,33 @@ func find(comp_data : ComponentData) -> int:
 	return items.find(comp_data)
 
 
+func get_class() -> String:
+	return "ComponentArray"
+
+
 func _to_string() -> String:
 	return str(items)
 
 
-static func from(original : Array) -> ComponentArray:
-	if _all_items_components(original):
-		return ComponentArray.new(original)
-	else:
-		return null
-		# TODO: error handling
+func _iter_init(_arg) -> bool:
+	_iter_idx = 0
+	if _iter_idx < len(items):
+		return true
+	return false
 
 
+func _iter_next(_arg) -> bool:
+	_iter_idx += 1
+	if _iter_idx < len(items):
+		return true
+	return false
+
+
+func _iter_get(_arg) -> ComponentData:
+	return items[_iter_idx]
+
+
+# warning-ignore:shadowed_variable
 static func _all_items_components(items : Array) -> bool:
 	for item in items:
 		if not (item is ComponentData): return false

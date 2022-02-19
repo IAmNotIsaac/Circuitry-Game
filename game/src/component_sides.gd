@@ -16,6 +16,10 @@ var left : int
 var right : int
 
 
+# warning-ignore:shadowed_variable
+# warning-ignore:shadowed_variable
+# warning-ignore:shadowed_variable
+# warning-ignore:shadowed_variable
 func _init(top := Types.NONE, bottom := Types.NONE, left := Types.NONE, right := Types.NONE) -> void:
 	self.top = top
 	self.bottom = bottom
@@ -50,6 +54,10 @@ func get_side_type(direction : int) -> int:
 	
 	# TODO: return error
 	return -1
+
+
+func get_class() -> String:
+	return "ComponentSides"
 
 
 # Start:

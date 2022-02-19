@@ -6,16 +6,12 @@ var components : ComponentArray = ComponentArray.new()
 
 
 func _ready() -> void:
-	var sides = ComponentSides.new(
-		ComponentSides.Types.DEBUG1,
-		ComponentSides.Types.DEBUG3,
-		ComponentSides.Types.DEBUG4,
-		ComponentSides.Types.DEBUG2
-	)
+	components.append(ComponentData.new())
+	components.append(ComponentData.new())
+	components.append(ComponentData.new())
 	
-	DebugTools.print_sides(sides)
-	
-#	add_component(null, Vector2.ZERO)
+	for component in components:
+		print(component)
 
 
 func add_component(comp_data : ComponentData, comp_position : Vector2) -> void:
@@ -27,4 +23,7 @@ func remove_component(comp_data : ComponentData) -> void:
 
 
 func get_component(comp_position : Vector2) -> Object:
+	for component in components:
+		pass
+	
 	return Node2D.new()
