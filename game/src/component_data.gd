@@ -5,9 +5,18 @@ var exact_sides := ComponentSides.new()
 var relative_sides := ComponentSides.new()
 var _grid_position := Vector2() setget , get_grid_position
 var _piece : Component setget set_piece, get_piece
+var _board setget set_board, get_board
 
 signal piece_changed(new_piece)
 signal grid_position_changed(new_grid_position)
+
+
+func set_board(board) -> void:
+	_board = board
+
+
+func get_board(): # -> CircuitBoard
+	return _board
 
 
 func set_piece(piece : Component) -> void:

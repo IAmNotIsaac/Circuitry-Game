@@ -1,3 +1,4 @@
+class_name CircuitBoard
 extends Node2D
 
 
@@ -11,7 +12,9 @@ func add_component(comp_data : ComponentData, comp_position := Vector2.ZERO) -> 
 		var piece : Component = Global.instances.CIRCUIT_PIECE.instance()
 		
 		comp_data.set_piece(piece)
+		comp_data.set_board(self)
 		piece.set_data(comp_data)
+		piece.set_data(self)
 		
 		comp_data.set_grid_position(int(comp_position.x), int(comp_position.y))
 		

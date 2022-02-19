@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node2D",
+"class": "CircuitBoard",
+"language": "GDScript",
+"path": "res://src/circuit_board.gd"
+}, {
+"base": "Node2D",
 "class": "Component",
 "language": "GDScript",
 "path": "res://src/component.gd"
@@ -35,6 +40,7 @@ _global_script_classes=[ {
 "path": "res://src/debug_tools.gd"
 } ]
 _global_script_class_icons={
+"CircuitBoard": "",
 "Component": "",
 "ComponentArray": "",
 "ComponentData": "",

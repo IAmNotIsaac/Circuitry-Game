@@ -5,8 +5,19 @@ extends Node2D
 const COMPONENT_SIZE := Vector2(64, 64)
 
 var _data setget set_data, get_data #: ComponentData
+var _board setget set_board, get_board #: CircuitBoard
 
 signal data_changed(new_data)
+signal board_changed(new_board)
+
+
+func set_board(board) -> void:
+	_board = board
+	emit_signal("board_changed", _board)
+
+
+func get_board(): # -> CircuitBoard
+	return _board
 
 
 func set_data(data) -> void:
