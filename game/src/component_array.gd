@@ -70,6 +70,10 @@ func find(comp_data : ComponentData) -> int:
 	return items.find(comp_data)
 
 
+func has(comp_data : ComponentData) -> bool:
+	return comp_data in items
+
+
 func get_class() -> String:
 	return "ComponentArray"
 
