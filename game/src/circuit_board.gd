@@ -13,20 +13,17 @@ func _ready() -> void:
 		ComponentSides.Types.DEBUG2
 	)
 	
-	for _i in 4:
-		sides.d_print()
-		sides.shift(1)
-		print("")
+	DebugTools.print_sides(sides)
 	
 #	add_component(null, Vector2.ZERO)
 
 
-func add_component(c_data : ComponentData, comp_position : Vector2) -> void:
-	components.append(c_data)
+func add_component(comp_data : ComponentData, comp_position : Vector2) -> void:
+	components.append(comp_data)
 
 
-func remove_component(c_data : ComponentData) -> void:
-	components.erase(c_data)
+func remove_component(comp_data : ComponentData) -> void:
+	components.erase(comp_data)
 
 
 func get_component(comp_position : Vector2) -> Object:

@@ -52,27 +52,6 @@ func get_side_type(direction : int) -> int:
 	return -1
 
 
-func evn(enum_: Dictionary, value : int) -> String:
-	return enum_.keys()[value]
-
-
-func d_print() -> void:
-	var top_n = evn(Types, top)
-	var bottom_n = evn(Types, bottom)
-	var left_n = evn(Types, left)
-	var right_n = evn(Types, right)
-	
-	var left_size = len(left_n)
-	var middle_size = max(len(top_n), len(bottom_n))
-	
-	# print first row
-	print(" ".repeat(left_size), top_n)
-	# print middle row
-	print(left_n, " ".repeat(middle_size), right_n)
-	# print last row
-	print(" ".repeat(left_size), bottom_n)
-
-
 # Start:
 #	  D1
 #	D4  D2
