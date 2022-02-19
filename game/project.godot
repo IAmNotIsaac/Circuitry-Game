@@ -8,10 +8,37 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Reference",
+"class": "ComponentArray",
+"language": "GDScript",
+"path": "res://src/component_array.gd"
+}, {
+"base": "Reference",
+"class": "ComponentData",
+"language": "GDScript",
+"path": "res://src/component_data.gd"
+}, {
+"base": "Reference",
+"class": "ComponentSides",
+"language": "GDScript",
+"path": "res://src/component_sides.gd"
+} ]
+_global_script_class_icons={
+"ComponentArray": "",
+"ComponentData": "",
+"ComponentSides": ""
+}
+
 [application]
 
 config/name="Circuitry Game"
 config/icon="res://icon.png"
+
+[display]
+
+window/size/width=1280
+window/size/height=720
 
 [physics]
 
