@@ -6,15 +6,25 @@ var size := Vector2(10, 5)
 var components : ComponentArray = ComponentArray.new()
 
 
+func _ready() -> void:
+# warning-ignore:return_value_discarded
+	add_component(ComponentData.new(), Vector2(2, 2))
+
+
+func _input(event : InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == 1 and event.pressed:
+		remove_component(localize_position(get_global_mouse_position()))
+
+
 # returns placed component
-func add_component(comp_data : ComponentData, comp_position := Vector2.ZERO) -> Component:
+func add_component(comp_data : ComponentData, comp_position : Vector2) -> Component:
 	if get_component(comp_position) == null and is_local_within_bounds(comp_position):
 		var piece : Component = Global.instances.CIRCUIT_PIECE.instance()
 		
 		comp_data.set_piece(piece)
 		comp_data.set_board(self)
 		piece.set_data(comp_data)
-		piece.set_data(self)
+		piece.set_board(self)
 		
 		comp_data.set_grid_position(int(comp_position.x), int(comp_position.y))
 		
@@ -26,8 +36,16 @@ func add_component(comp_data : ComponentData, comp_position := Vector2.ZERO) -> 
 	return null
 
 
-func remove_component(comp_data : ComponentData) -> void:
-	components.erase(comp_data)
+func remove_component(comp_position : Vector2) -> ComponentData:
+	var target = get_component(comp_position)
+	
+	if target:
+		target.get_piece().queue_free()
+		target.set_board(null)
+		target.set_piece(null)
+		components.erase(target)
+	
+	return target
 
 
 func get_component(comp_position : Vector2) -> Object:
