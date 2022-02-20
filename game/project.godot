@@ -15,14 +15,14 @@ _global_script_classes=[ {
 "path": "res://src/circuit_board.gd"
 }, {
 "base": "Node2D",
+"class": "CircuitSignal",
+"language": "GDScript",
+"path": "res://src/circuit_signal.gd"
+}, {
+"base": "Node2D",
 "class": "Component",
 "language": "GDScript",
 "path": "res://src/component.gd"
-}, {
-"base": "Reference",
-"class": "ComponentArray",
-"language": "GDScript",
-"path": "res://src/component_array.gd"
 }, {
 "base": "Reference",
 "class": "ComponentData",
@@ -48,16 +48,22 @@ _global_script_classes=[ {
 "class": "DevTools",
 "language": "GDScript",
 "path": "res://src/dev_tools.gd"
+}, {
+"base": "Reference",
+"class": "SpecializedArray",
+"language": "GDScript",
+"path": "res://src/specialized_array.gd"
 } ]
 _global_script_class_icons={
 "CircuitBoard": "",
+"CircuitSignal": "",
 "Component": "",
-"ComponentArray": "",
 "ComponentData": "",
 "ComponentDisplay": "",
 "ComponentSides": "",
 "DebugTools": "",
-"DevTools": ""
+"DevTools": "",
+"SpecializedArray": ""
 }
 
 [application]
