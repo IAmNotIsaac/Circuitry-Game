@@ -11,6 +11,12 @@ signal piece_changed(new_piece)
 signal grid_position_changed(new_grid_position)
 
 
+func set_sides(sides : ComponentSides) -> void:
+	exact_sides = sides
+	relative_sides = DevTools.copy_class(exact_sides)
+
+
+
 func set_board(board) -> void:
 	_board = board
 
