@@ -2,7 +2,7 @@ class_name ComponentSides
 
 
 enum Types {
-	INPUT, OUTPUT, NONE, DEBUG1, DEBUG2, DEBUG3, DEBUG4
+	NONE, INPUT, OUTPUT, DEBUG1, DEBUG2, DEBUG3, DEBUG4
 }
 
 enum Directions {
