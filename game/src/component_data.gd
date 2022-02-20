@@ -1,8 +1,8 @@
 class_name ComponentData
 
 
-var exact_sides := ComponentSides.new()
-var relative_sides := ComponentSides.new()
+var exact_sides := ComponentSides.new() setget set_sides, get_exact_sides
+var relative_sides := ComponentSides.new() setget set_sides, get_relative_sides
 var _grid_position := Vector2() setget , get_grid_position
 var _piece : Component setget set_piece, get_piece
 var _board setget set_board, get_board
@@ -11,10 +11,21 @@ signal piece_changed(new_piece)
 signal grid_position_changed(new_grid_position)
 
 
+func shift(amount : int) -> void:
+	relative_sides.shift(amount)
+
+
 func set_sides(sides : ComponentSides) -> void:
 	exact_sides = sides
 	relative_sides = DevTools.copy_class(exact_sides)
 
+
+func get_exact_sides() -> ComponentSides:
+	return exact_sides
+
+
+func get_relative_sides() -> ComponentSides:
+	return relative_sides
 
 
 func set_board(board) -> void:

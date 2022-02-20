@@ -33,7 +33,7 @@ func shift(count : int) -> void:
 	for i in 4:
 		set_side_type(
 			[Directions.TOP, Directions.RIGHT, Directions.BOTTOM, Directions.LEFT][i],
-			last_sides[i - wrapi(count, -len(Types), len(Types))]
+			last_sides[wrapi(i - count, -4, 4)]
 		)
 
 

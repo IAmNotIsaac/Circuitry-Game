@@ -7,7 +7,7 @@ static func new_class(class_name_ : String, init_args := []) -> Object:
 		if class_["class"] == class_name_:
 			var new_class = load(class_["path"])
 			
-			return new_class.new()
+			return new_class.callv("new", init_args)
 	
 	return null
 

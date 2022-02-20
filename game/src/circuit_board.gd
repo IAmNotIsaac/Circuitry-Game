@@ -8,7 +8,13 @@ var components : ComponentArray = ComponentArray.new()
 
 func _ready() -> void:
 # warning-ignore:return_value_discarded
-	add_component(ComponentData.new(), Vector2(2, 2))
+	var data = ComponentData.new()
+	var sides = ComponentSides.new(
+		ComponentSides.Types.INPUT
+	)
+	data.set_sides(sides)
+	add_component(data, Vector2(2, 2)).shift(1)
+	add_component(DevTools.copy_class(data), Vector2(3, 2)).shift(-2)
 
 
 func _input(event : InputEvent) -> void:
@@ -19,7 +25,8 @@ func _input(event : InputEvent) -> void:
 # returns placed component
 func add_component(comp_data : ComponentData, comp_position : Vector2) -> Component:
 	if get_component(comp_position) == null and is_local_within_bounds(comp_position):
-		var piece : Component = Global.instances.CIRCUIT_PIECE.instance()
+		var piece : Component = Global.instances.COMPONENT.instance()
+		add_child(piece)
 		
 		comp_data.set_piece(piece)
 		comp_data.set_board(self)
@@ -29,7 +36,6 @@ func add_component(comp_data : ComponentData, comp_position : Vector2) -> Compon
 		comp_data.set_grid_position(int(comp_position.x), int(comp_position.y))
 		
 		components.append(comp_data)
-		add_child(piece)
 		
 		return piece
 	
