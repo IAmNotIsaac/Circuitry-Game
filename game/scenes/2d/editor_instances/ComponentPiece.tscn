@@ -1,0 +1,68 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://src/instance_component.gd" type="Script" id=1]
+[ext_resource path="res://assets/textures/component_type_frame.png" type="Texture" id=2]
+[ext_resource path="res://assets/textures/component_frame.png" type="Texture" id=3]
+[ext_resource path="res://assets/textures/circuit_frame_plug.png" type="Texture" id=4]
+[ext_resource path="res://assets/textures/component_output_path.png" type="Texture" id=5]
+[ext_resource path="res://assets/textures/component_input_path.png" type="Texture" id=6]
+[ext_resource path="res://src/component_display.gd" type="Script" id=7]
+[ext_resource path="res://assets/textures/component_debug_path.png" type="Texture" id=8]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 4 ) ],
+"loop": false,
+"name": "default",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": false,
+"name": "output",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 6 ) ],
+"loop": false,
+"name": "input",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": false,
+"name": "debug",
+"speed": 0.0
+} ]
+
+[node name="ComponentPiece" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="ComponentDisplay" type="Node2D" parent="."]
+script = ExtResource( 7 )
+
+[node name="ComponentFrame" type="Sprite" parent="ComponentDisplay"]
+texture = ExtResource( 3 )
+
+[node name="ComponentTypeFrame" type="Sprite" parent="ComponentDisplay"]
+texture = ExtResource( 2 )
+
+[node name="Top" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -22 )
+frames = SubResource( 1 )
+playing = true
+
+[node name="Bottom" type="AnimatedSprite" parent="."]
+position = Vector2( 0, 22 )
+rotation = 3.14159
+frames = SubResource( 1 )
+playing = true
+
+[node name="Left" type="AnimatedSprite" parent="."]
+position = Vector2( -22, 0 )
+rotation = -1.5708
+frames = SubResource( 1 )
+playing = true
+
+[node name="Right" type="AnimatedSprite" parent="."]
+position = Vector2( 22, 0 )
+rotation = 1.5708
+frames = SubResource( 1 )
+playing = true

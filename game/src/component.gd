@@ -7,27 +7,10 @@ signal board_changed(new_board)
 
 const COMPONENT_SIZE := Vector2(64, 64)
 
-export(ComponentSides.Types) var default_top = ComponentSides.Types.NONE
-export(ComponentSides.Types) var default_bottom = ComponentSides.Types.NONE
-export(ComponentSides.Types) var default_left = ComponentSides.Types.NONE
-export(ComponentSides.Types) var default_right = ComponentSides.Types.NONE
-
 var _data setget set_data, get_data #: ComponentData
 var _board setget set_board, get_board #: CircuitBoard
 
 onready var component_display := $ComponentDisplay
-
-
-func _ready() -> void:
-	var default_sides := ComponentSides.new(
-		default_top,
-		default_bottom,
-		default_left,
-		default_right
-	)
-	var default_data = DevTools.new_class("ComponentData")
-	default_data.set_sides(default_sides)
-	set_data(default_data)
 
 
 func shift(amount : int) -> void:

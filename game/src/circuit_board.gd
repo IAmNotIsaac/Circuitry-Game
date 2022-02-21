@@ -8,50 +8,27 @@ var signals : SpecializedArray = SpecializedArray.new(CircuitSignal)
 
 
 func _ready() -> void:
+	for child in get_children():
+		if child is ComponentInstance:
+			var data = ComponentData.new()
+			var sides = ComponentSides.new(
+				child.default_top,
+				child.default_bottom,
+				child.default_left,
+				child.default_right
+			); data.set_sides(sides)
+			
 # warning-ignore:return_value_discarded
-	var data1 = ComponentData.new()
-	var sides1 = ComponentSides.new(
-		ComponentSides.Types.NONE,
-		ComponentSides.Types.INPUT,
-		ComponentSides.Types.NONE,
-		ComponentSides.Types.OUTPUT
-	); data1.set_sides(sides1)
-	
-	var data2 = ComponentData.new()
-	var sides2 = ComponentSides.new(
-		ComponentSides.Types.NONE,
-		ComponentSides.Types.OUTPUT,
-		ComponentSides.Types.INPUT,
-		ComponentSides.Types.NONE
-	); data2.set_sides(sides2)
-	
-	var data3 = ComponentData.new()
-	var sides3 = ComponentSides.new(
-		ComponentSides.Types.OUTPUT,
-		ComponentSides.Types.NONE,
-		ComponentSides.Types.NONE,
-		ComponentSides.Types.INPUT
-	); data3.set_sides(sides3)
-	
-	var data4 = ComponentData.new()
-	var sides4 = ComponentSides.new(
-		ComponentSides.Types.INPUT,
-		ComponentSides.Types.NONE,
-		ComponentSides.Types.OUTPUT,
-		ComponentSides.Types.NONE
-	); data4.set_sides(sides4)
-	
-	var comp1 = add_component(data1, Vector2(0, 0))
-	var comp2 = add_component(data2, Vector2(1, 0))
-	var comp3 = add_component(data3, Vector2(0, 1))
-	var comp4 = add_component(data4, Vector2(1, 1))
-	
-	spark_component(comp3)
+			add_component(data, localize_position(child.position))
+			child.queue_free()
 
 
 func _input(event : InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == 1 and event.pressed:
 		remove_component(localize_position(get_global_mouse_position()))
+	
+	if Input.is_action_pressed("ui_accept"):
+		spark_component(get_component(localize_position(get_global_mouse_position())).get_piece())
 
 
 # returns placed component
@@ -59,6 +36,8 @@ func add_component(comp_data : ComponentData, comp_position : Vector2) -> Compon
 	if get_component(comp_position) == null and is_local_within_bounds(comp_position):
 		var piece : Component = Global.instances.COMPONENT.instance()
 		add_child(piece)
+		
+		print(comp_data)
 		
 		comp_data.set_piece(piece)
 		comp_data.set_board(self)

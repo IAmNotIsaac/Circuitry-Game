@@ -6,6 +6,10 @@ const PATH_ANIMATIONS = {
 	ComponentSides.Types.NONE : "default",
 	ComponentSides.Types.INPUT : "input",
 	ComponentSides.Types.OUTPUT : "output",
+	ComponentSides.Types.DEBUG1 : "debug",
+	ComponentSides.Types.DEBUG2 : "debug",
+	ComponentSides.Types.DEBUG3 : "debug",
+	ComponentSides.Types.DEBUG4 : "debug",
 }
 
 onready var top := $Top
@@ -37,3 +41,11 @@ func match_data(data : ComponentData) -> void:
 	bottom.play(PATH_ANIMATIONS[data.get_relative_sides().bottom])
 	left.play(PATH_ANIMATIONS[data.get_relative_sides().left])
 	right.play(PATH_ANIMATIONS[data.get_relative_sides().right])
+
+
+#func set_side(side : int, type : int) -> void:
+#	match side:
+#		ComponentSides.Directions.TOP: $Top.play(PATH_ANIMATIONS[type])
+#		ComponentSides.Directions.BOTTOM: $Bottom.play(PATH_ANIMATIONS[type])
+#		ComponentSides.Directions.LEFT: $Left.play(PATH_ANIMATIONS[type])
+#		ComponentSides.Directions.RIGHT: $Right.play(PATH_ANIMATIONS[type])
