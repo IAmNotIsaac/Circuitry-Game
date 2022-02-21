@@ -2,7 +2,8 @@ extends Node
 
 
 var instances := {
-	"COMPONENT" : preload("res://scenes/2d/Component.tscn")
+	"COMPONENT" : preload("res://scenes/2d/Component.tscn"),
+	"SIGNAL" : preload("res://scenes/2d/CircuitSignal.tscn")
 }
 
 

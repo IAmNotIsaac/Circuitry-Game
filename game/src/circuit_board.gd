@@ -3,18 +3,26 @@ extends Node2D
 
 
 var size := Vector2(10, 5)
-var components : ComponentArray = ComponentArray.new()
+var components : SpecializedArray = SpecializedArray.new(ComponentData)
+var signals : SpecializedArray = SpecializedArray.new(CircuitSignal)
 
 
 func _ready() -> void:
 # warning-ignore:return_value_discarded
-	var data = ComponentData.new()
-	var sides = ComponentSides.new(
+	var data1 = ComponentData.new()
+	var sides1 = ComponentSides.new(
 		ComponentSides.Types.INPUT
-	)
-	data.set_sides(sides)
-	add_component(data, Vector2(2, 2)).shift(1)
-	add_component(DevTools.copy_class(data), Vector2(3, 2)).shift(-2)
+	); data1.set_sides(sides1)
+	
+	var data2 = ComponentData.new()
+	var sides2 = ComponentSides.new(
+		ComponentSides.Types.OUTPUT
+	); data2.set_sides(sides2)
+	
+	var comp1 = add_component(data1, Vector2(1, 1)); comp1.shift(1)
+	var comp2 = add_component(data2, Vector2(2, 1)); comp2.shift(-1)
+	
+	spark(comp2)
 
 
 func _input(event : InputEvent) -> void:
@@ -54,7 +62,7 @@ func remove_component(comp_position : Vector2) -> ComponentData:
 	return target
 
 
-func get_component(comp_position : Vector2) -> Object:
+func get_component(comp_position : Vector2) -> ComponentData:
 	for comp in components:
 		if comp.get_grid_position() == comp_position:
 			return comp
@@ -88,3 +96,32 @@ func is_local_within_bounds(pos : Vector2) -> bool:
 	if pos.x >= 0.0 and pos.x < size.x and pos.y >= 0.0 and pos.y < size.y:
 		return true
 	return false
+
+
+func spark(component : Component) -> void:
+	for side_and_type in component.get_data().get_relative_sides().get_sides_and_types():
+		var side : int = side_and_type.get_idx(0)
+		var type : int = side_and_type.get_idx(1)
+		
+		if type == ComponentSides.Types.OUTPUT:
+			var offset = Vector2.ZERO
+			
+			match side:
+				ComponentSides.Directions.TOP: offset = Vector2.UP
+				ComponentSides.Directions.BOTTOM: offset = Vector2.DOWN
+				ComponentSides.Directions.LEFT: offset = Vector2.LEFT
+				ComponentSides.Directions.RIGHT: offset = Vector2.RIGHT
+			
+			var adjacent_component := get_component(component.get_data().get_grid_position() + offset)
+			
+			if adjacent_component and adjacent_component.get_relative_sides().get_side_type(ComponentSides.flip_direction(side)) == ComponentSides.Types.INPUT:
+				var signal_ = Global.instances.SIGNAL.instance()
+				add_child(signal_)
+				
+				signal_.set_position(globalize_position(component.get_data().get_grid_position() + offset / 2.0))
+				
+				if side in [ComponentSides.Directions.LEFT, ComponentSides.Directions.RIGHT]:
+					signal_.set_rotation_degrees(90)
+					
+					spark(adjacent_component.get_piece())
+					signal_.queue_free()

@@ -56,8 +56,33 @@ func get_side_type(direction : int) -> int:
 	return -1
 
 
+# Returns list of tuples (direction, type)
+func get_sides_and_types() -> SpecializedArray:
+	var result := SpecializedArray.new(Tuple)
+	
+	for direction in [Directions.TOP, Directions.BOTTOM, Directions.LEFT, Directions.RIGHT]:
+		result.append(
+			Tuple.new(
+				[Tuple.Builtins.INT, Tuple.Builtins.INT],
+				[direction, get_side_type(direction)]
+			)
+		)
+	
+	return result
+
+
 func get_class() -> String:
 	return "ComponentSides"
+
+
+static func flip_direction(direction : int) -> int:
+	match direction:
+		Directions.TOP: return Directions.BOTTOM
+		Directions.BOTTOM: return Directions.TOP
+		Directions.LEFT: return Directions.RIGHT
+		Directions.RIGHT: return Directions.LEFT
+	return -1
+	# TODO: error handling
 
 
 # Start:
