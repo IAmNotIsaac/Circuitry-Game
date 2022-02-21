@@ -16,6 +16,7 @@ var _iter_idx := 0
 
 func _init(specialties := [], items := []) -> void:
 	self.specialties = specialties
+	self.items = items
 	self.items.resize(len(self.specialties))
 
 
@@ -30,6 +31,10 @@ func get_idx(idx : int):
 
 func to_gd_array() -> Array:
 	return items
+
+
+func _to_string() -> String:
+	return str(items).replace("[", "(").replace("]", ")")
 
 
 func _matches_type(idx : int, item) -> bool:
