@@ -4,6 +4,7 @@
 [ext_resource path="res://assets/textures/component_signal.png" type="Texture" id=2]
 
 [node name="CircuitSignal" type="Node2D"]
+visible = false
 script = ExtResource( 1 )
 
 [node name="ComponentSignal" type="Sprite" parent="."]

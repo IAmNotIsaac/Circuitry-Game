@@ -11,33 +11,42 @@ func _ready() -> void:
 # warning-ignore:return_value_discarded
 	var data1 = ComponentData.new()
 	var sides1 = ComponentSides.new(
+		ComponentSides.Types.NONE,
 		ComponentSides.Types.INPUT,
 		ComponentSides.Types.NONE,
-		ComponentSides.Types.OUTPUT,
 		ComponentSides.Types.OUTPUT
 	); data1.set_sides(sides1)
 	
 	var data2 = ComponentData.new()
 	var sides2 = ComponentSides.new(
-		ComponentSides.Types.OUTPUT
+		ComponentSides.Types.NONE,
+		ComponentSides.Types.OUTPUT,
+		ComponentSides.Types.INPUT,
+		ComponentSides.Types.NONE
 	); data2.set_sides(sides2)
 	
 	var data3 = ComponentData.new()
 	var sides3 = ComponentSides.new(
+		ComponentSides.Types.OUTPUT,
+		ComponentSides.Types.NONE,
+		ComponentSides.Types.NONE,
 		ComponentSides.Types.INPUT
 	); data3.set_sides(sides3)
 	
 	var data4 = ComponentData.new()
 	var sides4 = ComponentSides.new(
-		ComponentSides.Types.INPUT
+		ComponentSides.Types.INPUT,
+		ComponentSides.Types.NONE,
+		ComponentSides.Types.OUTPUT,
+		ComponentSides.Types.NONE
 	); data4.set_sides(sides4)
 	
-	var comp1 = add_component(data1, Vector2(1, 1)); comp1.shift(1)
-	var comp2 = add_component(data2, Vector2(2, 1)); comp2.shift(-1)
-	var comp3 = add_component(data3, Vector2(1, 0)); comp3.shift(2)
-	var comp4 = add_component(data4, Vector2(1, 2)); comp4.shift(0)
+	var comp1 = add_component(data1, Vector2(0, 0))
+	var comp2 = add_component(data2, Vector2(1, 0))
+	var comp3 = add_component(data3, Vector2(0, 1))
+	var comp4 = add_component(data4, Vector2(1, 1))
 	
-	spark_component(comp2)
+	spark_component(comp3)
 
 
 func _input(event : InputEvent) -> void:
@@ -114,16 +123,29 @@ func is_local_within_bounds(pos : Vector2) -> bool:
 
 
 func spark(component : Component, direction : int) -> void:
-	var signal_ : CircuitSignal = Global.instances.SIGNAL.instance()
-	
-	add_child(signal_)
-	
-	signal_.logic(self, component, direction)
+	if get_signal(component.get_data().get_grid_position()) == null:
+		var signal_ = Global.instances.SIGNAL.instance()
+		add_child(signal_)
+		
+		signal_.grid_position = component.get_data().get_grid_position()
+		
+		signal_.logic(self, component, direction, signals)
 
 
 func spark_component(component : Component) -> void:
 	for direction in component.get_data().get_output_directions():
 		spark(component, direction)
+
+
+func get_signal(pos : Vector2): # -> CircuitSignal
+	for signal_ in signals:
+		if signal_.grid_position == pos:
+			return signal_
+	return null
+
+
+func get_class() -> String:
+	return "CircuitBoard"
 
 
 #func spark(component : Component) -> void:
