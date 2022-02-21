@@ -28,6 +28,10 @@ func get_idx(idx : int):
 	return items[idx]
 
 
+func to_gd_array() -> Array:
+	return items
+
+
 func _matches_type(idx : int, item) -> bool:
 	if item is specialties[idx]:
 		return true

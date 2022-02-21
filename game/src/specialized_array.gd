@@ -104,6 +104,10 @@ func has(item) -> bool:
 	# TODO: error handling
 
 
+func to_gd_array() -> Array:
+	return items
+
+
 func get_class() -> String:
 	return "ComponentArray"
 
