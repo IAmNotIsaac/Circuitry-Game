@@ -54,5 +54,19 @@ func get_grid_position() -> Vector2:
 	return _grid_position
 
 
+func get_output_directions() -> PoolIntArray:
+	var result : PoolIntArray = []
+	
+	for side_and_type in relative_sides.get_sides_and_types():
+		if side_and_type.get_idx(1) == ComponentSides.Types.OUTPUT:
+			result.append(side_and_type.get_idx(0))
+	
+	return result
+
+
+func sparked() -> PoolIntArray:
+	return get_output_directions()
+
+
 func get_class() -> String:
 	return "ComponentData"
